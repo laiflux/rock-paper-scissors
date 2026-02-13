@@ -56,11 +56,11 @@ resultDiv.textContent = `Current Human Score: ${humanScore} and Current Computer
 
 if (humanScore === 5 || computerScore === 5) {
 if (humanScore > computerScore) {
-    resultDiv.textContent = `Your score is ${humanScore} and you defeated the computer's score [${computerScore}]`;
+    resultDiv.textContent = `Your score is ${humanScore} and you defeated the computer's score of ${computerScore}`;
     humanScore = 0;
     computerScore = 0;
 } else if (computerScore > humanScore) {
-    resultDiv.textContent = `Your score of ${humanScore} was not enough to beat the computer's score [${computerScore}]`;
+    resultDiv.textContent = `Your score of ${humanScore} was not enough to beat the computer's score of ${computerScore}`;
     humanScore = 0;
     computerScore = 0;
 }};
