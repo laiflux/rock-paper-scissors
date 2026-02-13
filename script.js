@@ -1,3 +1,13 @@
+const rockBtn = document.getElementById('rock');
+const paperBtn = document.getElementById('paper');
+const scissorsBtn = document.getElementById('scissors');
+const resultDiv = document.createElement('div');
+document.body.appendChild(resultDiv);
+const roundDiv = document.createElement('div');
+document.body.appendChild(roundDiv);
+let humanChoice;
+let roundsPlayed = 0;
+
 function getComputerChoice() {
     let compChNum = (Math.floor(Math.random() * 3) + 1);
     let compCh;
@@ -15,66 +25,63 @@ function getComputerChoice() {
     return compCh;   
 }
 
-console.log(getComputerChoice())
-
-function getHumanChoice() {
-   let humChNum = +prompt("Choose your fighter:\n1. Rock\n2.Paper\n3.Scissors", "type a number here")
-    let humCh;
-   switch (humChNum) {
-    case 1:
-        humCh = "rock";
-        break;
-    case 2:
-        humCh = "paper";
-        break;
-    case 3:
-        humCh = "scissors";
-        break;
-    }
-    return humCh;
-}
-
-console.log(getHumanChoice())
-
-
-function playGame() {
 let humanScore = 0;
 let computerScore = 0;
 
-for (let i = 0; i < 5; i++) {
-
-const humanChoice = getHumanChoice();
-const computerChoice = getComputerChoice();
-
 function playRound(humanChoice, computerChoice) {
+
     if (humanChoice === computerChoice) {
-        console.log("It's a tie. No one wins. Or loses.")
+        roundDiv.textContent = "It's a tie. No one wins. Or loses."
     } else if (humanChoice === "paper" && computerChoice === "rock") {
-        console.log("Paper covers Rock. You win!");
+        roundDiv.textContent = "Paper covers Rock. You win!";
         humanScore++;
     } else if (humanChoice === "scissors" && computerChoice === "paper") {
-        console.log("Scissors cuts Paper. You win!");
+        roundDiv.textContent = "Scissors cuts Paper. You win!";
         humanScore++;
     } else if (humanChoice === "rock" && computerChoice === "scissors") {
-        console.log("Rock smashes Scissors. You win!");
+        roundDiv.textContent = "Rock smashes Scissors. You win!";
         humanScore++;
     } else if (humanChoice === "scissors" && computerChoice === "rock") {
-         console.log("Rock smashes Scissors. You lose.");
+        roundDiv.textContent = "Rock smashes Scissors. You lose.";
          computerScore++;
     } else if (humanChoice === "rock" && computerChoice === "paper") {
-        console.log("Paper covers Rock. You lose.");
+        roundDiv.textContent = "Paper covers Rock. You lose.";
         computerScore++;
     } else if (humanChoice === "paper" && computerChoice === "scissors") {
-        console.log("Scissors cuts Paper. You lose.");
+        roundDiv.textContent = "Scissors cuts Paper. You lose.";
         computerScore++;
     }
-}
-playRound(humanChoice, computerChoice);
-console.log(`Current Human Score: ${humanScore}`)
-console.log(`Current Computer Score: ${computerScore}`);
-}
-console.log(`Final Human Score: ${humanScore}`);
-console.log(`Final Computer Score: ${computerScore}`);
+roundsPlayed++;
+resultDiv.textContent = `Current Human Score: ${humanScore} and Current Computer Score: ${computerScore}`;
+
+if (humanScore === 5 || computerScore === 5) {
+if (humanScore > computerScore) {
+    resultDiv.textContent = `Your score is ${humanScore} and you defeated the computer's score [${computerScore}]`;
+    humanScore = 0;
+    computerScore = 0;
+} else if (computerScore > humanScore) {
+    resultDiv.textContent = `Your score of ${humanScore} was not enough to beat the computer's score [${computerScore}]`;
+    humanScore = 0;
+    computerScore = 0;
+}};
 }
 
-playGame()
+rockBtn.addEventListener('click', () => {
+humanChoice = "rock";
+const computerChoice = getComputerChoice();
+playRound(humanChoice, computerChoice);
+})
+
+paperBtn.addEventListener('click', () => {
+humanChoice = "paper";
+const computerChoice = getComputerChoice();
+playRound(humanChoice, computerChoice);
+})
+
+scissorsBtn.addEventListener('click', () => {
+humanChoice = "scissors";
+const computerChoice = getComputerChoice();
+playRound(humanChoice, computerChoice);
+})
+
+
